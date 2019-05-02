@@ -12,6 +12,8 @@ def handler(event, context):
 
     if pathParameters and 'proxy' in pathParameters:
         parsedPathParameters = pathParameters['proxy'].split("/")
+    else:
+        parsedPathParameters = []
 
     try:
         # This is where the magic happens
