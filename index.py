@@ -3,8 +3,12 @@ import json
 
 
 def handler(event, context):
-    queryStringParameters = event['queryStringParameters'] or {}
-    pathParameters = event['pathParameters'] or {}
+    try:
+        queryStringParameters = event['queryStringParameters'] or {}
+        pathParameters = event['pathParameters'] or {}
+    except:
+        queryStringParameters = {}
+        pathParameters = {}
 
     if pathParameters and 'proxy' in pathParameters:
         parsedPathParameters = pathParameters['proxy'].split("/")
