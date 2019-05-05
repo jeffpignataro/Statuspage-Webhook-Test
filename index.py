@@ -1,6 +1,8 @@
 import sys
 import json
 
+from models.statusPageResponse import StatusPageResponse
+
 
 def handler(event, context):
     try:
@@ -16,9 +18,14 @@ def handler(event, context):
         parsedPathParameters = []
 
     try:
+        statusPageResponse = json.load(event["body"])
+    except Exception as e:
+        return responseObject(502, "Error executing method. Error information: {}".format(e))
+
+    try:
         # This is where the magic happens
-        apiResponse = callApiMethod(
-            parsedPathParameters, queryStringParameters)
+        apiResponse = statusPageResponse
+        # generateResponse(parsedPathParameters, queryStringParameters)
     except Exception as e:
         return responseObject(502, "Error executing method. Error information: {}".format(e))
 
@@ -28,7 +35,7 @@ def handler(event, context):
     return responseObject(200, apiResponse)
 
 
-def callApiMethod(pathArgs, qsArgs):
+def generateResponse(pathArgs, qsArgs):
     return 'Sample Response Object'
 
 
